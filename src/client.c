@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:25:06 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 16:25:04 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:38:31 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ while(bit < 8)
 
 	if((c & 128))
 	{
-		printf("sigusr1\n");
+	//	printf("sigusr1\n");
 		if (kill(pid, SIGUSR1) == -1)
 			return (0);
 		//	Error the signal was not sent
 	}		
 	else
 	{
-		printf("sigurs2\n");
+	//	printf("sigurs2\n");
 		if (kill(pid, SIGUSR2) == -1)
 			return(0);
 		//	Error the signal was not sent

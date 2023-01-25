@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 16:25:06 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:38:40 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -22,7 +22,7 @@ void sig_handler(int signal)
  
 	if (signal == SIGUSR1)
 	{
-		printf("SIGUR1\n");
+	//	printf("SIGUR1\n");
 		res = res | 1;
 	}
 
@@ -30,7 +30,9 @@ void sig_handler(int signal)
 	if(g_bit == 8)
 	{
 		//o imprimos el char o guardamos en un string para imprimir cuando este completo.
-		printf("resultado = %c\n", res);
+	//	printf("resultado = %c\n", res);
+		write(1, &res, 1);
+		g_bit = 0;
 	}
 	res = res << 1;
 
