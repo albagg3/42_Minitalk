@@ -6,11 +6,33 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/24 18:56:17 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:27:54 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <unistd.h>
 #include <stdio.h>
+#include <signal.h>
+
+void sig_handler(int signal)
+{
+	char	res;
+	int		bit;
+
+	res = 0;
+	bit = 0;
+	while (bit < 8)
+	{
+		printf("entra\n");
+		if (signal == SIGUSR1)
+			res = res | 1;
+		if (signal == SIGUSR2)
+			res = res | 0;
+		res = res << 1;
+		bit++;
+	}
+	printf("resultado = %c\n", res);
+
+}
 
 int main(){
 	int process;
@@ -25,5 +47,9 @@ int main(){
 	
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
+	while(1)
+	{
+		pause();
+	}
 
 }
