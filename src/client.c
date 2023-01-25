@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:25:06 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 13:27:51 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:25:04 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 int	char_to_binary(int pid, char c)
 {
 	int bit;
-	int cmp;
+//	int cmp;
 	bit = 0;
 
-	cmp = c >> 7; 
+	//cmp = c >> 7; 
 while(bit < 8)
 {
 
-	if((cmp & 1) == 1)
+	if((c & 128))
 	{
 		printf("sigusr1\n");
 		if (kill(pid, SIGUSR1) == -1)
@@ -39,11 +39,9 @@ while(bit < 8)
 			return(0);
 		//	Error the signal was not sent
 	}
-	//usleep
+	usleep(300);
 	bit++;
-	cmp = c << bit;
-	cmp = cmp >> 7;
-		
+	c = c << 1;
 	}
 	return(1);
 }

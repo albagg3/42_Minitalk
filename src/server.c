@@ -6,31 +6,33 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 13:27:54 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:25:06 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
 
+int		g_bit;
+
+
 void sig_handler(int signal)
 {
-	char	res;
-	int		bit;
-
-	res = 0;
-	bit = 0;
-	while (bit < 8)
+	static unsigned char	res;
+ 
+	if (signal == SIGUSR1)
 	{
-		printf("entra\n");
-		if (signal == SIGUSR1)
-			res = res | 1;
-		if (signal == SIGUSR2)
-			res = res | 0;
-		res = res << 1;
-		bit++;
+		printf("SIGUR1\n");
+		res = res | 1;
 	}
-	printf("resultado = %c\n", res);
+
+	g_bit++;
+	if(g_bit == 8)
+	{
+		//o imprimos el char o guardamos en un string para imprimir cuando este completo.
+		printf("resultado = %c\n", res);
+	}
+	res = res << 1;
 
 }
 
@@ -40,6 +42,7 @@ int main(){
 	printf("PID:[%d]\n", process);
 	struct sigaction signal;
 
+	g_bit = 0;
 	signal.sa_handler = sig_handler;
 //si se llama a la handler y se estaba ya ejecutando alguna funcion ocmo open read o write y la función handle returns normal hay dos opciones. Devolver un coigo de fallo EINTR o continuar con la ejecución del handler, si ponemos la flag SA_RESTART estamos diciendo que continúe en lugar de devolver un error
 	signal.sa_flags = SA_RESTART;	
