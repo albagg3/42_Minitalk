@@ -6,28 +6,25 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:25:06 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 16:38:31 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:37:32 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "../lib/libft_src/libft.h"
+#include "../lib/libft_src_printf/libft.h"
 
 int	char_to_binary(int pid, char c)
 {
 	int bit;
-//	int cmp;
 	bit = 0;
 
-	//cmp = c >> 7; 
 while(bit < 8)
 {
 
 	if((c & 128))
 	{
-	//	printf("sigusr1\n");
 		if (kill(pid, SIGUSR1) == -1)
 			return (0);
 		//	Error the signal was not sent

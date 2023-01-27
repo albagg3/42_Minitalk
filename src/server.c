@@ -6,13 +6,12 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/25 16:38:40 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:37:34 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
-#include <stdio.h>
 #include <signal.h>
-
+#include "../lib/libft_src_printf/libft.h"
 int		g_bit;
 
 
@@ -22,15 +21,12 @@ void sig_handler(int signal)
  
 	if (signal == SIGUSR1)
 	{
-	//	printf("SIGUR1\n");
 		res = res | 1;
 	}
 
 	g_bit++;
 	if(g_bit == 8)
 	{
-		//o imprimos el char o guardamos en un string para imprimir cuando este completo.
-	//	printf("resultado = %c\n", res);
 		write(1, &res, 1);
 		g_bit = 0;
 	}
@@ -41,7 +37,7 @@ void sig_handler(int signal)
 int main(){
 	int process;
 	process = getpid();
-	printf("PID:[%d]\n", process);
+	ft_printf("PID:[%d]\n", process);
 	struct sigaction signal;
 
 	g_bit = 0;

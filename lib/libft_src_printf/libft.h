@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:39:55 by albagarc          #+#    #+#             */
-/*   Updated: 2022/08/11 12:52:36 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:04:42 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-
+# include <stdarg.h>
 # include <stddef.h>
 
 typedef struct s_list
@@ -48,7 +48,7 @@ int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
@@ -67,5 +67,17 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_putchar_printf(char c);
+int		ft_putstr_printf(char *s);
+int		ft_putnbr_printf(long n);
+int		ft_print_character(int n);
+int		ft_printf(const char *str, ...);
+int		ft_identify_format(va_list arg, char c);
+int		ft_print_string(char *str);
+int		ft_hexa_lower(unsigned long n);
+int		ft_hexa_len(unsigned long n);
+int		ft_hexa_upper(unsigned long n);
+int		ft_nbr_len(long n);
+int		ft_pointer(unsigned long long n);
 
 #endif

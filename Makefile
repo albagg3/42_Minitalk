@@ -1,7 +1,7 @@
 CLIENT = client
 SERVER = server
 CC = gcc
-LIBFT_DIR = lib/libft_src
+LIBFT_DIR = lib/libft_src_printf
 CFLAGS = -Wall -Wextra -Werror -g 
 INC_DIR = inc
 OBJ_DIR = obj/
