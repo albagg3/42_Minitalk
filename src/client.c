@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:25:06 by albagarc          #+#    #+#             */
-/*   Updated: 2023/02/02 15:01:56 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:48:51 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,33 @@
 #include <unistd.h>
 #include "../lib/libft_src_printf/libft.h"
 
-/*int	malloc_signals(int pid, char *str)
+void sig_handler(int signal)
 {
-	int	 i;
-	while(str[i] != NULL)
-	{
-		if(kill(pid, SIGUSR1))
-			return(0);
-		i++;
-	}
-	kill(pid,SIGUSR2);
-	return(0);
-}*/
-
+	static int counter = 0;
+	
+	if(signal)
+		ft_printf("\r[%d]", counter++ );
+}
 
 int	char_to_binary(int pid, char c)
 {
 	int bit;
+	int signal;
 	bit = 0;
-
-while(bit < 8)
-{
-
-	if((c & 128))
+	
+	while(bit < 8)
 	{
-		if (kill(pid, SIGUSR1) == -1)
-			return (0);
+		if((c & 128))
+			signal = SIGUSR1;
+		else
+			signal = SIGUSR2;
+		if(kill(pid, signal) == -1)
+			return(1);
 		//	Error the signal was not sent
-	}		
-	else
-	{
-	//	printf("sigurs2\n");
-		if (kill(pid, SIGUSR2) == -1)
-			return(0);
-		//	Error the signal was not sent
-	}
-	usleep(300);//pause();
-	bit++;
-	c = c << 1;
+//		usleep(300);
+		pause();
+		bit++;
+		c = c << 1;
 	}
 	return(1);
 }
@@ -61,24 +50,23 @@ int main (int argc, char **argv)
 {
 	int pid;
 	int i;
-	
+	struct sigaction sig;
+
+	sig.sa_handler = sig_handler;
+	sig.sa_flags = SA_RESTART;
+
+	sigaction(SIGUSR1, &sig, NULL);
 	i = 0;
 	if (argc != 3)
 		return(0);
-	//	terminate
-	
 	else
 	{
 		pid = ft_atoi(argv[1]);
-//		malloc_signals(pid, argv[2]);
 		while (argv[2][i])
 		{
-		//	printf("argumento:%c\n", argv[2][i]);
 			char_to_binary(pid,argv[2][i]);
 			i++;
 		}
 		char_to_binary(pid, 0);
 	}	
-
-
 }

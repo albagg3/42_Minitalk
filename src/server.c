@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/02/02 15:01:54 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:48:54 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -19,7 +19,6 @@ char	*addchar_printstr(char res, char *buffer)
 {
 	char	str[2];
 	char	*print;
-	
 	g_bit = 0;
 	if(res == '\0')
 	{
@@ -44,9 +43,10 @@ void sigaction_handler(int signal, siginfo_t *siginfo,void  *context)
 	static int				counter = 0;
 
 
-	if(pid != siginfo->si_pid)
+	if(pid != siginfo->si_pid && siginfo->si_pid != 0)
+	
 	{
-		ft_printf("[new_client]\n");
+		ft_printf("[new_client]\n, %d\n", siginfo->si_pid);
 //		free(buffer);
 		buffer = NULL;
 		pid = siginfo->si_pid;
@@ -58,6 +58,8 @@ void sigaction_handler(int signal, siginfo_t *siginfo,void  *context)
 	if (signal == SIGUSR1)
 		res = res | 1;
 	g_bit++;
+	usleep(50);
+	kill(pid, SIGUSR1);
 	if(g_bit == 8)
 	{
 		buffer = addchar_printstr(res,buffer);
@@ -81,6 +83,6 @@ int main()
 	sigaction(SIGUSR2, &signal, NULL);
 	while(1)
 	{
-		pause ();
+		
 	}
 }
