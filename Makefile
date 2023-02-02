@@ -9,7 +9,7 @@ SRC_DIR = src/
 
 #FSANITIZE	:= -fsanitize=address -g3
 
-SRC_FILES = client server
+SRC_FILES = client server errors
 
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -37,11 +37,11 @@ bonus:
 -include $(DEPS)
 $(CLIENT) :	$(LIBFT_DIR)/libft.a $(OBJ) Makefile
 		make -sC $(LIBFT_DIR)
-		$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ_DIR)client.o $(LIBFT_DIR)/libft.a -o $(CLIENT)
+		$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ_DIR)client.o $(OBJ_DIR)errors.o $(LIBFT_DIR)/libft.a -o $(CLIENT)
 
 $(SERVER) :	$(LIBFT_DIR)/libft.a $(OBJ) Makefile
 		make -sC $(LIBFT_DIR)
-		$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ_DIR)server.o $(LIBFT_DIR)/libft.a -o $(SERVER)
+		$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ_DIR)server.o $(OBJ_DIR)errors.o $(LIBFT_DIR)/libft.a -o $(SERVER)
 
 clean:
 		$(RM) -r $(OBJ_DIR) $(DEPS)
