@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/01/30 20:01:25 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:01:54 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -20,20 +20,18 @@ char	*addchar_printstr(char res, char *buffer)
 	char	str[2];
 	char	*print;
 	
-//	print = malloc (sizeof (char) * 2);
 	g_bit = 0;
 	if(res == '\0')
 	{
 		ft_printf("%s\n",buffer);
-		free(buffer);
-		exit(0);
+//		free(buffer);
+//		exit(0);
 	}
 	str[0] = res;
 	str[1] = '\0';
 	print = ft_strjoin(buffer, str);
 	free(buffer);
 	buffer = print;
-//	free(print)
 	return (buffer);
 }
 
@@ -49,10 +47,11 @@ void sigaction_handler(int signal, siginfo_t *siginfo,void  *context)
 	if(pid != siginfo->si_pid)
 	{
 		ft_printf("[new_client]\n");
-		free(buffer);
+//		free(buffer);
 		buffer = NULL;
 		pid = siginfo->si_pid;
 		buffer = ft_strdup("");
+		counter = 0;
 	}
 	counter++;
 	ft_printf("\r[%d]",counter);
