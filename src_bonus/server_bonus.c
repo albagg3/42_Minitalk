@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:24:51 by albagarc          #+#    #+#             */
-/*   Updated: 2023/02/09 13:27:30 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:39:45 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -63,6 +63,9 @@ void	sigaction_handler(int signal, siginfo_t *siginfo, void *context)
 	if (signal == SIGUSR1)
 		res = res | 1;
 	g_bit++;
+	usleep(50);
+	if (kill(pid, SIGUSR1) == -1)
+		terminate(ERR_SIG);
 	if (g_bit == 8)
 		buffer = addchar_printstr(res, buffer);
 	res = res << 1;

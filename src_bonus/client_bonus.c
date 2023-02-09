@@ -6,7 +6,7 @@
 /*   By: albagarc <albagarc@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:25:06 by albagarc          #+#    #+#             */
-/*   Updated: 2023/02/09 13:27:33 by albagarc         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:31:36 by albagarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <signal.h>
@@ -14,6 +14,17 @@
 #include <unistd.h>
 #include "../lib/libft_src_printf/libft.h"
 #include "../inc/errors.h"
+
+void	sig_handler(int signal)
+{
+	static int	counter = 0;
+
+	if (signal)
+	{
+		if (ft_printf("\r[%d]", ++counter) == -1)
+			terminate(ERR_PRINT);
+	}
+}
 
 int	char_to_binary(int pid, char c)
 {
@@ -32,7 +43,7 @@ int	char_to_binary(int pid, char c)
 			terminate(ERR_SIG);
 			return (1);
 		}
-		usleep(300);
+		pause();
 		bit++;
 		c = c << 1;
 	}
@@ -61,7 +72,11 @@ int	main(int argc, char **argv)
 {
 	int					pid;
 	int					i;
+	struct sigaction	sig;
 
+	sig.sa_handler = sig_handler;
+	sig.sa_flags = SA_RESTART;
+	sigaction(SIGUSR1, &sig, NULL);
 	i = 0;
 	if (argc != 3)
 		return (0);
