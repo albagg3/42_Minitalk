@@ -18,7 +18,8 @@ $ make
 ```bash
 $ make bonus
 ```
-## How does it function?
+## How does it work?
+![gif](./img/1280_720.gif)
 
 ### ✨Personal learning✨
 * What are UNIX signals and how to use them.
